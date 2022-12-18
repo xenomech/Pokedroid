@@ -29,27 +29,35 @@ const Modal = ({ cardData }: Props) => {
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 transition-opacity bg-white bg-opacity-20 backdrop-blur-md" />
         <Dialog.Content className=" bg-white rounded-md neubrutal-borders neubrutal-borders-shadow fixed top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 max-w-7xl w-[90vw] h-[80vh] xl:h-fit xl:overflow-hidden overflow-y-scroll p-6 ">
-          <Dialog.Title className="text-lg md:text-4xl capitalize flex justify-between items-center">
-            <h2> {cardData?.name}</h2>
-            <div className="flex  justify-end items-center text-sm">
-              <div className="neubrutal-borders p-2 py-1 flex justify-center items-center">
-                <p className="text-lg pr-3">{data?.message}</p>
-                <Downloads />
+          <Dialog.Title className="text-lg md:text-4xl capitalize flex flex-col justify-between items-center">
+            <div className="flex justify-between items-center  w-full">
+              <h2> {cardData?.name}</h2>
+              <div className="flex justify-end items-center text-sm">
+                <div className="neubrutal-borders p-2 py-1 hidden md:flex justify-center items-center">
+                  <p className="text-lg pr-3">{data?.message}</p>
+                  <Downloads />
+                </div>
+                <Dialog.Close>
+                  <button
+                    className="neubrutal-borders ml-3 p-2"
+                    aria-label="Close"
+                  >
+                    <CloseButton />
+                  </button>
+                </Dialog.Close>
               </div>
+            </div>
+            <div className="flex items-center justify-between mt-3 w-full">
               <button
                 className="md:hidden neubrutal-borders px-3 py-2 bg-yellow-500"
                 onClick={() => exportToPng(polaroid, cardData?.name)}
               >
                 Get Card
               </button>
-              <Dialog.Close>
-                <button
-                  className="neubrutal-borders ml-3 p-2"
-                  aria-label="Close"
-                >
-                  <CloseButton />
-                </button>
-              </Dialog.Close>
+              <div className="md:hidden neubrutal-borders px-3 py-2 flex justify-center items-center">
+                <p className="text-lg pr-3">{data?.message}</p>
+                <Downloads />
+              </div>
             </div>
           </Dialog.Title>
           <div className="flex flex-col xl:flex-row justify-center items-center lg:justify-between">

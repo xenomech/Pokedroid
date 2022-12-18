@@ -7,7 +7,7 @@ export default function Container({ children }: Props) {
   const meta = {
     title: "Poké card ",
     name: "Poké Card",
-    description: "Get your pokemon!",
+    description: "Get your pokemon polaroid!",
     keywords: "Pokemon | card | PokeCard | Nintendo 3DS | Pokemon x/y",
     type: "website",
     image: "https://gokuls.dev/static/images/PreviewImage.png",
