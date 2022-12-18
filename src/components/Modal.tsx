@@ -14,7 +14,7 @@ const Modal = ({ cardData }: Props) => {
   const [open, setOpen] = useState(false);
   const polaroid = useRef<HTMLDivElement | any>({ current: 1 });
   const { data, error } = useSWR(
-    `/api/${cardData.name}`,
+    cardData.name && `/api/${cardData.name}`,
     async (input: string) => {
       const res = await axios.get(input);
       return res.data;

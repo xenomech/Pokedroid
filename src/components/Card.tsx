@@ -43,7 +43,7 @@ const Card = ({ item }: Props) => {
         </>
       )}
       <div className="flex justify-center align-middle">
-        <Modal cardData={cardData} />
+        {cardData && <Modal cardData={cardData} />}
       </div>
     </div>
   );
