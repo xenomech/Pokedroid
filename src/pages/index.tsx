@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from "react";
 import useSWR from "swr";
-
 import { GetServerSideProps } from "next";
 import debounce from "lodash.debounce";
 import usePageNumber from "@hooks/usePageNumber";
-import { Card } from "@components";
+import { Card, Container } from "@components";
 import axios from "axios";
 
 type allPokemonType = {
@@ -34,94 +33,96 @@ const Home = ({ allPokemons }: Props) => {
     return debounce(handleQueryChange, 300);
   }, []);
   return (
-    <div className="mx-4">
-      <div className="flex justify-center align-middle my-6 text-5xl ">
-        <h1 className="origin-center -rotate-6 neubrutal-borders neubrutal-borders-shadow p-4 m-4 bg-white">
-          Poké Card
-        </h1>
-      </div>
-      <div className="max-w-5xl mx-auto flex justify-center align-middle ">
-        <input
-          className="neubrutal-borders p-2 w-full"
-          placeholder="Search for your favorite Pokémons here!"
-          onChange={debouncedResults}
-        />
-      </div>
-      <div className="max-w-5xl max-h-full mx-4 lg:mx-auto">
-        <div className="md:grid md:grid-cols-3 lg:grid-cols-4 flex justify-center align-middle flex-wrap gap-6 my-6">
-          {allPokemons
-            .filter((item) =>
-              item.name.toLowerCase().includes(query.toLocaleLowerCase())
-            )
-            .slice(startIndex, lastIndex)
-            .map((item) => {
-              return (
-                <>
-                  <Card item={item} />
-                </>
-              );
-            })}
+    <Container>
+      <div className="mx-4">
+        <div className="flex justify-center align-middle my-6 text-5xl ">
+          <h1 className="origin-center -rotate-6 neubrutal-borders neubrutal-borders-shadow p-4 m-4 bg-white">
+            Poké Card
+          </h1>
         </div>
-        <div className="flex justify-center flex-wrap align-middle">
-          <button
-            className="p-2 px-3 mx-2 text-sm neubrutal-borders "
-            onClick={() => {
-              if (pageNumber > 1) {
-                setPageNumber(pageNumber - 1);
-              }
-            }}
-          >
-            Prev
-          </button>
-          <p className="text-sm p-3 mx-2">
-            Page {pageNumber} of {numberOfPages}
-          </p>
-          <button
-            className="p-2 px-3 mx-2 text-sm neubrutal-borders "
-            onClick={() => {
-              if (pageNumber < numberOfPages) {
-                setPageNumber(pageNumber + 1);
-              }
-            }}
-          >
-            Next
-          </button>
+        <div className="max-w-5xl mx-auto flex justify-center align-middle ">
+          <input
+            className="neubrutal-borders p-2 w-full"
+            placeholder="Search for your favorite Pokémons here!"
+            onChange={debouncedResults}
+          />
         </div>
-      </div>
-
-      <div className="max-w-5xl mx-auto my-10 flex flex-col md:flex-row justify-between items-center">
-        <div className="flex justify-center flex-col md:flex-row items-center">
-          <div className="flex justify-center items-center">
-            {data?.message
-              .toString()
-              .split("")
-              .map((item: string, index: number) => {
+        <div className="max-w-5xl max-h-full mx-4 lg:mx-auto">
+          <div className="md:grid md:grid-cols-3 lg:grid-cols-4 flex justify-center align-middle flex-wrap gap-6 my-6">
+            {allPokemons
+              .filter((item) =>
+                item.name.toLowerCase().includes(query.toLocaleLowerCase())
+              )
+              .slice(startIndex, lastIndex)
+              .map((item) => {
                 return (
-                  <p
-                    key={index + 1}
-                    className="m-2 w-10 h-10 text-center flex justify-center items-center neubrutal-borders neubrutal-borders-shadow"
-                  >
-                    {item}
-                  </p>
+                  <>
+                    <Card item={item} />
+                  </>
                 );
               })}
           </div>
-          <p className="m-4">Pokémons Downloaded</p>
-        </div>
-        <div className="my-3">
-          <p>
-            Made With ❤️ by{" "}
-            <a
-              href="https://www.github.com/xenomech"
-              target="_blank"
-              rel="noreferrer"
+          <div className="flex justify-center flex-wrap align-middle">
+            <button
+              className="p-2 px-3 mx-2 text-sm neubrutal-borders "
+              onClick={() => {
+                if (pageNumber > 1) {
+                  setPageNumber(pageNumber - 1);
+                }
+              }}
             >
-              Gokul Suresh
-            </a>
-          </p>
+              Prev
+            </button>
+            <p className="text-sm p-3 mx-2">
+              Page {pageNumber} of {numberOfPages}
+            </p>
+            <button
+              className="p-2 px-3 mx-2 text-sm neubrutal-borders "
+              onClick={() => {
+                if (pageNumber < numberOfPages) {
+                  setPageNumber(pageNumber + 1);
+                }
+              }}
+            >
+              Next
+            </button>
+          </div>
+        </div>
+
+        <div className="max-w-5xl mx-auto my-10 flex flex-col md:flex-row justify-between items-center">
+          <div className="flex justify-center flex-col md:flex-row items-center">
+            <div className="flex justify-center items-center">
+              {data?.message
+                .toString()
+                .split("")
+                .map((item: string, index: number) => {
+                  return (
+                    <p
+                      key={index + 1}
+                      className="m-2 w-10 h-10 text-center flex justify-center items-center neubrutal-borders neubrutal-borders-shadow"
+                    >
+                      {item}
+                    </p>
+                  );
+                })}
+            </div>
+            <p className="m-4">Pokémons Downloaded</p>
+          </div>
+          <div className="my-3">
+            <p>
+              Made With ❤️ by{" "}
+              <a
+                href="https://www.github.com/xenomech"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Gokul Suresh
+              </a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 
