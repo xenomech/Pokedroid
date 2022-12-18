@@ -95,9 +95,12 @@ const Home = ({ allPokemons }: Props) => {
             {data?.message
               .toString()
               .split("")
-              .map((item: string) => {
+              .map((item: string, index: number) => {
                 return (
-                  <p className="m-2 w-10 h-10 text-center flex justify-center items-center neubrutal-borders neubrutal-borders-shadow">
+                  <p
+                    key={index + 1}
+                    className="m-2 w-10 h-10 text-center flex justify-center items-center neubrutal-borders neubrutal-borders-shadow"
+                  >
                     {item}
                   </p>
                 );
@@ -108,7 +111,11 @@ const Home = ({ allPokemons }: Props) => {
         <div className="my-3">
           <p>
             Made With ❤️ by{" "}
-            <a href="https://www.github.com/xenomech" target="_blank">
+            <a
+              href="https://www.github.com/xenomech"
+              target="_blank"
+              rel="noreferrer"
+            >
               Gokul Suresh
             </a>
           </p>
