@@ -20,7 +20,8 @@
       "@assets": ["./src/assets/index.tsx"],
       "@hooks/*": ["./src/hooks/*"],
       "@types": ["./src/types/index.ts"],
-      "@helpers": ["./src/helpers/index.ts"]
+      "@helpers": ["./src/helpers/index.ts"],
+      "@utils/*": ["./src/utils/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

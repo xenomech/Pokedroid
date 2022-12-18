@@ -10,7 +10,7 @@ const Card = ({ item }: Props) => {
     `https://pokeapi.co/api/v2/pokemon/${item.name}`
   );
   return (
-    <div className="p-3 w-60 md:w-auto neubrutal-borders">
+    <div className="p-3 w-60 h-72 md:w-auto neubrutal-borders">
       {loading ? (
         <div className="p-3 py-8">
           <Image

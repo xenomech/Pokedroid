@@ -2,6 +2,7 @@ import { toPng } from "html-to-image";
 import FileSaver from "file-saver";
 import { Ref } from "react";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export default async function exportToPng(
   element: Ref<HTMLDivElement> | any,
@@ -42,10 +43,14 @@ export default async function exportToPng(
           },
           backgroundColor: "rgba(0,0,0,0)",
         }).then(async (data) => {
+          await axios.post(`/api/${name}`);
           toast.success("Export Successfull", {
             position: "bottom-center",
           });
-          FileSaver.saveAs(data, `${name}.png`);
+          FileSaver.saveAs(
+            data,
+            `Poké-card-${name}-${new Date().toLocaleDateString()}.png`
+          );
         });
       });
     }

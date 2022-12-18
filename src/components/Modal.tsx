@@ -1,16 +1,25 @@
-import { Ref, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import * as Progress from "@radix-ui/react-progress";
 import { exportToPng } from "@helpers";
 import Display from "@types";
 import Image from "next/image";
-import CloseButton from "@assets";
+import { CloseButton, Downloads } from "@assets";
+import useSWR from "swr";
+import axios from "axios";
 type Props = {
   cardData: Display;
 };
 const Modal = ({ cardData }: Props) => {
   const [open, setOpen] = useState(false);
   const polaroid = useRef<HTMLDivElement | any>({ current: 1 });
+  const { data, error } = useSWR(
+    `/api/${cardData.name}`,
+    async (input: string) => {
+      const res = await axios.get(input);
+      return res.data;
+    }
+  );
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger className="neubrutal-borders px-3 py-2 bg-yellow-500">
@@ -18,11 +27,15 @@ const Modal = ({ cardData }: Props) => {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 transition-opacity" />
-        <Dialog.Content className=" bg-white rounded-md neubrutal-borders fixed top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 max-w-7xl w-[90vw] h-[80vh] lg:h-[95vh] xl:overflow-hidden overflow-y-scroll p-6 ">
+        <Dialog.Overlay className="fixed inset-0 transition-opacity bg-white bg-opacity-20 backdrop-blur-md" />
+        <Dialog.Content className=" bg-white rounded-md neubrutal-borders neubrutal-borders-shadow fixed top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 max-w-7xl w-[90vw] h-[80vh] xl:h-fit xl:overflow-hidden overflow-y-scroll p-6 ">
           <Dialog.Title className="text-lg md:text-4xl capitalize flex justify-between items-center">
             <h2> {cardData?.name}</h2>
             <div className="flex  justify-end items-center text-sm">
+              <div className="neubrutal-borders p-2 py-1 flex justify-center items-center">
+                <p className="text-lg pr-3">{data?.message}</p>
+                <Downloads />
+              </div>
               <button
                 className="md:hidden neubrutal-borders px-3 py-2 bg-yellow-500"
                 onClick={() => exportToPng(polaroid, cardData?.name)}
@@ -42,7 +55,7 @@ const Modal = ({ cardData }: Props) => {
           <div className="flex flex-col xl:flex-row justify-center items-center lg:justify-between">
             <div className="py-10 md:py-0">
               <div ref={polaroid} className="p-6">
-                <div className="md:h-[520px] sm:w-[420px] sm:mx-auto  xl:m-10 neubrutal-borders neubrutal-borders-shadow  origin-center -rotate-6">
+                <div className="md:h-[420px] w-11/12 sm:w-[380px] mx-auto  xl:m-10 neubrutal-borders neubrutal-borders-shadow  origin-center -rotate-6">
                   <div className="flex justify-center bg-[#eeedde] m-6 h-5/6 my-4 p-3 py-8 border-2  border-black">
                     {cardData?.name && (
                       <Image
