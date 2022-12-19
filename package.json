@@ -8,6 +8,10 @@
     "start": "next start",
     "lint": "next lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xenomech/pokedroid"
+  },
   "dependencies": {
     "@next/font": "^13.0.7",
     "@radix-ui/react-dialog": "^1.0.2",
