@@ -17,7 +17,7 @@ export default async function handler(
           .map((item) => item.downloads)
           .reduce((a, b) => a + b, 0);
         return res.status(200).json({
-          message: downloads || null,
+          message: downloads || 0,
         });
       }
     } catch (err) {

@@ -54,15 +54,11 @@ const Home = ({ allPokemons }: Props) => {
                 item.name.toLowerCase().includes(query.toLocaleLowerCase())
               )
               .slice(startIndex, lastIndex)
-              .map((item) => {
-                return (
-                  <>
-                    <Card item={item} />
-                  </>
-                );
+              .map((item, index) => {
+                return <Card key={index + 1} item={item} />;
               })}
           </div>
-          <div className="flex justify-center flex-wrap align-middle">
+          <div className="flex justify-center align-middle">
             <button
               className="p-2 px-3 mx-2 text-sm neubrutal-borders "
               onClick={() => {
@@ -73,7 +69,7 @@ const Home = ({ allPokemons }: Props) => {
             >
               Prev
             </button>
-            <p className="text-sm p-3 mx-2">
+            <p className="text-sm text-center p-3 mx-2">
               Page {pageNumber} of {numberOfPages}
             </p>
             <button
@@ -93,9 +89,9 @@ const Home = ({ allPokemons }: Props) => {
           <div className="flex justify-center flex-col md:flex-row items-center">
             <div className="flex justify-center items-center">
               {data?.message
-                .toString()
-                .split("")
-                .map((item: string, index: number) => {
+                ?.toString()
+                ?.split("")
+                ?.map((item: string, index: number) => {
                   return (
                     <p
                       key={index + 1}
