@@ -62,9 +62,9 @@ const Modal = ({ cardData }: Props) => {
           </Dialog.Title>
           <div className="flex flex-col xl:flex-row justify-center items-center lg:justify-between">
             <div className="py-10 md:py-0">
-              <div ref={polaroid} className="p-6">
-                <div className="md:h-[420px] w-11/12 sm:w-[380px] mx-auto  xl:m-10 neubrutal-borders neubrutal-borders-shadow  origin-center -rotate-6">
-                  <div className="flex justify-center bg-[#eeedde] m-6 h-5/6 my-4 p-3 py-8 border-2  border-black">
+              <div ref={polaroid} className="md:p-6">
+                <div className="md:h-[420px] w-60 sm:w-[380px] mx-auto  xl:m-10 neubrutal-borders neubrutal-borders-shadow  origin-center -rotate-6">
+                  <div className="flex bg-[#eeedde] m-2  h-5/6 my-4 p-10 md:p-3 py-8 border-2  border-black">
                     {cardData?.name && (
                       <Image
                         className="h-auto"

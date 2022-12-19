@@ -37,7 +37,7 @@ const Home = ({ allPokemons }: Props) => {
       <div className="mx-4">
         <div className="flex justify-center align-middle my-6 text-5xl ">
           <h1 className="origin-center -rotate-6 neubrutal-borders neubrutal-borders-shadow p-4 m-4 bg-white">
-            Poké Card
+            Pokédroid
           </h1>
         </div>
         <div className="max-w-5xl mx-auto flex justify-center align-middle ">

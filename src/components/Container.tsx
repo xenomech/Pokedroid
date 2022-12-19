@@ -5,8 +5,8 @@ type Props = {
 };
 export default function Container({ children }: Props) {
   const meta = {
-    title: "Poké card ",
-    name: "Poké Card",
+    title: "Pokédroid",
+    name: "Pokédroid",
     description: "Get your pokemon polaroid!",
     keywords: "Pokemon | card | PokeCard | Nintendo 3DS | Pokemon x/y",
     type: "website",
