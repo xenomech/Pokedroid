@@ -14,21 +14,22 @@ type Props = {
   allPokemons: [allPokemonType];
 };
 const Home = ({ allPokemons }: Props) => {
-  const [query, setQuery] = useState("");
+  const [pokemonData, setPokemonData] = useState<allPokemonType[]>(allPokemons);
+
   const { data, error } = useSWR(`/api/count`, async (input: string) => {
     const res = await axios.get(input);
     return res.data;
   });
   const [pageNumber, setPageNumber, numberOfPages, startIndex, lastIndex] =
-    usePageNumber(allPokemons.length);
+    usePageNumber(pokemonData.length);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    //reset slice on search
-    if (e.target.value.length > 0) {
-      setPageNumber(1);
-    }
-    setQuery(e.target.value);
+    const data: allPokemonType[] = allPokemons.filter((item) =>
+      item.name.toLowerCase().includes(e.target.value.toLocaleLowerCase())
+    );
+    setPokemonData(data);
   };
+
   const debouncedResults = useMemo(() => {
     return debounce(handleQueryChange, 300);
   }, []);
@@ -49,14 +50,9 @@ const Home = ({ allPokemons }: Props) => {
         </div>
         <div className="max-w-5xl max-h-full mx-4 lg:mx-auto">
           <div className="md:grid md:grid-cols-3 lg:grid-cols-4 flex justify-center align-middle flex-wrap gap-6 my-6">
-            {allPokemons
-              .filter((item) =>
-                item.name.toLowerCase().includes(query.toLocaleLowerCase())
-              )
-              .slice(startIndex, lastIndex)
-              .map((item, index) => {
-                return <Card key={index + 1} item={item} />;
-              })}
+            {pokemonData.slice(startIndex, lastIndex).map((item, index) => {
+              return <Card key={index + 1} item={item} />;
+            })}
           </div>
           <div className="flex justify-center align-middle">
             <button

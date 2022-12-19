@@ -33,7 +33,7 @@ const Modal = ({ cardData }: Props) => {
             <div className="flex justify-between items-center  w-full">
               <h2> {cardData?.name}</h2>
               <div className="flex justify-end items-center text-sm">
-                <div className="neubrutal-borders p-2 py-1 hidden md:flex justify-center items-center">
+                <div className="border-2 border-black rounded-[3px] p-2 py-1 hidden md:flex justify-center items-center">
                   <p className="text-lg pr-3">{data?.message}</p>
                   <Downloads />
                 </div>
@@ -54,7 +54,7 @@ const Modal = ({ cardData }: Props) => {
               >
                 Get Card
               </button>
-              <div className="md:hidden neubrutal-borders px-3 py-2 flex justify-center items-center">
+              <div className="md:hidden border-2 border-black rounded-[3px] px-3 py-2 flex justify-center items-center">
                 <p className="text-lg pr-3">{data?.message}</p>
                 <Downloads />
               </div>
