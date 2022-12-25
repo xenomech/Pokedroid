@@ -5,6 +5,12 @@
 body {
   background-color: #eeedde;
 }
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
 @layer components {
   .neubrutal-borders {
     box-sizing: border-box;

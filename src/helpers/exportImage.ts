@@ -14,10 +14,7 @@ export default async function exportToPng(
       position: "bottom-center",
     });
 
-    var dim =
-      window.innerWidth > 760
-        ? { height: 1200, width: 1200 }
-        : { height: 760, width: 760 };
+    var dim = { height: 1200, width: 1200 };
     if (element && element.current) {
       toPng(element?.current, {
         height: dim.height,
