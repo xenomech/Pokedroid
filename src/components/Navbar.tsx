@@ -7,9 +7,9 @@ export default function Navbar() {
         <h2 className=" origin-center -rotate-6 neubrutal-borders neubrutal-borders-shadow p-4 bg-white ">
           <a href="#">Pokédroid</a>
         </h2>
-        <div className="mt-12 md:mt-0 text-base flex justify-center items-center text-brand-2 ">
+        <div className="mt-12 md:mt-0 text-base flex justify-center items-center text-brand-2">
           <a
-            className="flex justify-center items-center "
+            className="flex justify-center items-center"
             href="https://www.github.com/xenomech"
           >
             <GitHubLogoIcon className="w-6 h-6" />

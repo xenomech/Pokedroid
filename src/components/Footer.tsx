@@ -35,14 +35,14 @@ export default function Footer({}: Props) {
             className="flex justify-start gap-2 my-4 md:mb-6 items-center"
             href="https://www.gokuls.dev"
           >
-            <ReaderIcon className="w-6 h-6" />
+            <ReaderIcon className="w-6 h-6 " />
             <p>Blog</p>
           </a>
           <a
             className="flex justify-start gap-2 my-4 md:mb-6 items-center"
             href="https://twitter.com/justgokulsuresh"
           >
-            <TwitterLogoIcon className="w-6 h-6" />
+            <TwitterLogoIcon className="w-6 h-6 " />
             Twitter
           </a>
         </div>
@@ -51,14 +51,14 @@ export default function Footer({}: Props) {
             className="flex justify-start gap-2 my-4 md:mb-6 items-center"
             href="https://www.github.com/xenomech"
           >
-            <GitHubLogoIcon className="w-6 h-6" />
+            <GitHubLogoIcon className="w-6 h-6 " />
             <p>Github</p>
           </a>
           <a
             className="flex justify-start gap-2 items-center"
             href="https://www.figma.com/@gokulsuresh"
           >
-            <FigmaLogoIcon className="w-6 h-6" />
+            <FigmaLogoIcon className="w-6 h-6 " />
             Figma
           </a>
         </div>
