@@ -31,7 +31,7 @@ const Home = ({ allPokemons }: Props) => {
       item.name.toLowerCase().includes(e.target.value.toLocaleLowerCase())
     );
     setPokemonData(data);
-    setPageNumber(1)
+    setPageNumber(1);
   };
 
   const debouncedResults = useMemo(() => {
