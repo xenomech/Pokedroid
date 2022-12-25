@@ -18,13 +18,14 @@ export default function Footer({}: Props) {
         </h2>
         <div className="mt-8 hidden md:block">
           <p>
-            Made With ❤️ by
+            Made With ❤️ by&nbsp;
             <a
+              className="hover:text-brand-1 transition-all duration-100"
               href="https://www.github.com/xenomech"
               target="_blank"
               rel="noreferrer"
             >
-              &nbsp; Gokul Suresh
+              Gokul Suresh
             </a>
           </p>
         </div>
@@ -65,8 +66,9 @@ export default function Footer({}: Props) {
       </div>
       <div className=" md:hidden">
         <p>
-          Made With ❤️ by
+          Made With ❤️ by&nbsp;
           <a
+            className="hover:text-brand-1 transition-all duration-100"
             href="https://www.github.com/xenomech"
             target="_blank"
             rel="noreferrer"
