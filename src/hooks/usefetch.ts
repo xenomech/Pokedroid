@@ -17,7 +17,6 @@ const useFetch = (url: string) => {
       setLoading(true);
       const { data } = await axios.get(url);
       if (data) {
-        console.log(data)
         setLoading(false);
         const display: Display = {
           name: data.name,

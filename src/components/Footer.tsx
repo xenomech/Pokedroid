@@ -31,21 +31,33 @@ export default function Footer({}: Props) {
       </div>
       <div className="flex justify-center gap-6 items-start">
         <div className="">
-          <a className="flex justify-start gap-2 my-4 md:mb-6 items-center" href="#">
+          <a
+            className="flex justify-start gap-2 my-4 md:mb-6 items-center"
+            href="https://www.gokuls.dev"
+          >
             <ReaderIcon className="w-6 h-6" />
             <p>Blog</p>
           </a>
-          <a className="flex justify-start gap-2 my-4 md:mb-6 items-center" href="#">
+          <a
+            className="flex justify-start gap-2 my-4 md:mb-6 items-center"
+            href="https://twitter.com/justgokulsuresh"
+          >
             <TwitterLogoIcon className="w-6 h-6" />
             Twitter
           </a>
         </div>
         <div>
-          <a className="flex justify-start gap-2 my-4 md:mb-6 items-center" href="#">
+          <a
+            className="flex justify-start gap-2 my-4 md:mb-6 items-center"
+            href="https://www.github.com/xenomech"
+          >
             <GitHubLogoIcon className="w-6 h-6" />
             <p>Github</p>
           </a>
-          <a className="flex justify-start gap-2 items-center" href="#">
+          <a
+            className="flex justify-start gap-2 items-center"
+            href="https://www.figma.com/@gokulsuresh"
+          >
             <FigmaLogoIcon className="w-6 h-6" />
             Figma
           </a>
@@ -53,7 +65,7 @@ export default function Footer({}: Props) {
       </div>
       <div className=" md:hidden">
         <p>
-          Made With ❤️ by{" "}
+          Made With ❤️ by
           <a
             href="https://www.github.com/xenomech"
             target="_blank"

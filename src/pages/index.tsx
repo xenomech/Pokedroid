@@ -112,7 +112,10 @@ const Home = ({ allPokemons }: Props) => {
                 }
               }}
             >
-              <a href="#search">Next</a>
+              <a className="md:hidden" href="#search">
+                Next
+              </a>
+              <p className="hidden md:visible">Next</p>
             </button>
           </div>
         </div>
@@ -132,7 +135,6 @@ export const getServerSideProps: GetServerSideProps<{
     "https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0"
   );
   const allPokemons = await res.json();
-  console.log(allPokemons);
   return {
     props: {
       allPokemons: allPokemons.results,
