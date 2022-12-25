@@ -10,7 +10,7 @@ export default function Container({ children }: Props) {
     description: "Get your pokemon polaroid!",
     keywords: "Pokemon | card | PokeCard | Nintendo 3DS | Pokemon x/y",
     type: "website",
-    image: "https://gokuls.dev/static/images/PreviewImage.png",
+    image: "/static/images/og_image.png",
     twitterHandle: "@justgokulsuresh",
   };
   return (
