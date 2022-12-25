@@ -13,7 +13,7 @@ export default function Navbar() {
             href="https://www.github.com/xenomech"
           >
             <GitHubLogoIcon className="w-6 h-6" />
-            <p className="pl-2">Github</p>
+            <p className="pl-2">GitHub</p>
           </a>
           <a
             className="flex justify-center items-center pl-6"

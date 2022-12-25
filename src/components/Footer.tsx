@@ -53,7 +53,7 @@ export default function Footer({}: Props) {
             href="https://www.github.com/xenomech"
           >
             <GitHubLogoIcon className="w-6 h-6" />
-            <p>Github</p>
+            <p>GitHub</p>
           </a>
           <a
             className="flex justify-start gap-2 items-center"
