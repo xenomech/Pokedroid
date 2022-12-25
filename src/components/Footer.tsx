@@ -18,13 +18,13 @@ export default function Footer({}: Props) {
         </h2>
         <div className="mt-8 hidden md:block">
           <p>
-            Made With ❤️ by{" "}
+            Made With ❤️ by
             <a
               href="https://www.github.com/xenomech"
               target="_blank"
               rel="noreferrer"
             >
-              Gokul Suresh
+              &nbsp; Gokul Suresh
             </a>
           </p>
         </div>
