@@ -4,14 +4,21 @@ import * as Progress from "@radix-ui/react-progress";
 import { exportToPng } from "@helpers";
 import Display from "@types";
 import Image from "next/image";
-import { CloseButton, Downloads } from "@assets";
 import useSWR from "swr";
 import axios from "axios";
+import Polaroid from "./Polaroid";
+import { JetBrains_Mono } from "@next/font/google";
+import { Cross2Icon, DownloadIcon } from "@radix-ui/react-icons";
+import { v4 as uuidv4 } from "uuid";
+
 type Props = {
   cardData: Display;
 };
+const jetBrainsMono = JetBrains_Mono({ subsets: ["latin"] });
+
 const Modal = ({ cardData }: Props) => {
   const [open, setOpen] = useState(false);
+
   const polaroid = useRef<HTMLDivElement | any>({ current: 1 });
   const { data, error } = useSWR(
     cardData.name && `/api/${cardData.name}`,
@@ -28,59 +35,48 @@ const Modal = ({ cardData }: Props) => {
 
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 transition-opacity bg-white bg-opacity-20 backdrop-blur-md" />
-        <Dialog.Content className=" bg-white rounded-md neubrutal-borders neubrutal-borders-shadow fixed top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 max-w-7xl w-[90vw] h-[80vh] xl:h-fit xl:overflow-hidden overflow-y-scroll p-6 ">
+        <Dialog.Content
+          className={`bg-white rounded-md neubrutal-borders fixed top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 max-w-7xl w-[95vw] h-[85vh] xl:h-fit xl:overflow-hidden overflow-y-scroll p-6  ${jetBrainsMono.className}`}
+        >
           <Dialog.Title className="text-lg md:text-4xl capitalize flex flex-col justify-between items-center">
             <div className="flex justify-between items-center  w-full">
               <h2> {cardData?.name}</h2>
               <div className="flex justify-end items-center text-sm">
-                <div className="border-2 border-black rounded-[3px] p-2 py-1 hidden md:flex justify-center items-center">
+                <div className="border-2 border-brand-2 rounded-[3px] p-2 py-1 hidden md:flex justify-center items-center">
                   <p className="text-lg pr-3">{data?.message}</p>
-                  <Downloads />
+                  <DownloadIcon className="w-5 h-5" />
                 </div>
                 <Dialog.Close>
                   <button
                     className="neubrutal-borders ml-3 p-2"
                     aria-label="Close"
                   >
-                    <CloseButton />
+                    <Cross2Icon className="w-5 h-5" />
                   </button>
                 </Dialog.Close>
               </div>
             </div>
-            <div className="flex items-center justify-between mt-3 w-full">
+            <div className="md:hidden flex items-center justify-between mt-3 w-full">
               <button
-                className="md:hidden neubrutal-borders px-3 py-2 bg-yellow-500"
+                className="neubrutal-borders px-3 py-2 bg-yellow-500"
                 onClick={() => exportToPng(polaroid, cardData?.name)}
               >
                 Get Card
               </button>
-              <div className="md:hidden border-2 border-black rounded-[3px] px-3 py-2 flex justify-center items-center">
+              <div className="border-2 border-brand-2 rounded-[3px] px-3 py-2 flex justify-center items-center">
                 <p className="text-lg pr-3">{data?.message}</p>
-                <Downloads />
+                <DownloadIcon />
               </div>
             </div>
           </Dialog.Title>
-          <div className="flex flex-col xl:flex-row justify-center items-center lg:justify-between">
-            <div className="py-10 md:py-0">
-              <div ref={polaroid} className="md:p-6">
-                <div className="md:h-[420px] w-60 sm:w-[380px] mx-auto  xl:m-10 neubrutal-borders neubrutal-borders-shadow  origin-center -rotate-6">
-                  <div className="flex bg-[#eeedde] m-2  h-5/6 my-4 p-10 md:p-3 py-8 border-2  border-black">
-                    {cardData?.name && (
-                      <Image
-                        className="h-auto"
-                        src={cardData?.image}
-                        height="500"
-                        width="500"
-                        alt={cardData?.name}
-                        priority
-                      />
-                    )}
-                  </div>
-                  <p className="flex justify-center uppercase font-bold items-center pb-4 text-lg">
-                    {cardData?.name}
-                  </p>
-                </div>
-              </div>
+          <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start lg:justify-between max-w-[2000px]">
+            <div className="py-14 md:p-6">
+              <Polaroid
+                name={cardData?.name}
+                polaroid={polaroid}
+                imgUrl={cardData?.image}
+              />
+
               <div className="hidden md:flex justify-center items-center mt-4">
                 <button
                   className="neubrutal-borders px-3 py-2 bg-yellow-500"
@@ -90,28 +86,24 @@ const Modal = ({ cardData }: Props) => {
                 </button>
               </div>
             </div>
-            <div className="py-2 md:px-8 max-w-xl">
-              <div className="my-4 md:w-3/4 flex justify-between items-center">
-                <div className="my-2">
-                  <p className="text-lg uppercase">Generation</p>
-                  <p className="my-2">Generation 1</p>
-                </div>
-                <div className="my-2">
+            <div className="pb-2 md:p-6 max-w-xl">
+              <div className="mb-4 md:w-3/4 flex justify-start items-center">
+                <div className="mb-2 mr-6">
                   <p className="text-lg uppercase">Height</p>
                   <p className="my-2">{cardData.height / 10} m</p>
                 </div>
-                <div className="my-2">
+                <div className="mb-2">
                   <p className="text-lg uppercase">Weight</p>
                   <p className="my-2">{cardData.weight / 10} Kg</p>
                 </div>
               </div>
-              <div className="my-2">
+              <div className="mb-2">
                 <p className="text-lg uppercase">Abilities</p>
                 <div className="flex justify-start items-center">
                   {cardData.abilities.map((item: any, index: number) => {
                     return (
                       <span
-                        key={index + 1}
+                        key={uuidv4()}
                         className="px-3 py-1 m-2 ml-0 neubrutal-borders-inverse text-white"
                       >
                         <p>{item.ability.name}</p>
@@ -121,14 +113,16 @@ const Modal = ({ cardData }: Props) => {
                 </div>
               </div>
               <div className="my-4">
-                <p className="text-lg uppercase">Base Experience</p>
+                <p className="text-lg uppercase mb-4">
+                  Base Experience : {cardData.base_experience}
+                </p>
                 <div className="Progress-Wrapper">
                   <Progress.Root className="ProgressRoot" value={66}>
                     <Progress.Indicator
                       className="ProgressIndicator"
                       style={{
                         transform: `translateX(-${
-                          100 - cardData.base_experience
+                          100 - (cardData.base_experience / 500) * 100
                         }%)`,
                       }}
                     />
@@ -142,7 +136,7 @@ const Modal = ({ cardData }: Props) => {
                     if (index < 20) {
                       return (
                         <span
-                          key={index + 1}
+                          key={uuidv4()}
                           className="px-3 py-1 m-2 ml-0 neubrutal-borders-inverse text-white"
                         >
                           <p>{item.move.name}</p>

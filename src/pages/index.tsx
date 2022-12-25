@@ -1,10 +1,11 @@
-import React, { useMemo, useState } from "react";
-import useSWR from "swr";
+import React, { useMemo, useState, useEffect, useRef } from "react";
 import { GetServerSideProps } from "next";
-import debounce from "lodash.debounce";
+import { Card, Container, CountMonitor, Footer, Navbar } from "@components";
 import usePageNumber from "@hooks/usePageNumber";
-import { Card, Container } from "@components";
 import axios from "axios";
+import useSWR from "swr";
+import debounce from "lodash.debounce";
+import { v4 as uuidv4 } from "uuid";
 
 type allPokemonType = {
   name: string;
@@ -15,6 +16,8 @@ type Props = {
 };
 const Home = ({ allPokemons }: Props) => {
   const [pokemonData, setPokemonData] = useState<allPokemonType[]>(allPokemons);
+  const lottieRef = useRef<HTMLDivElement | any>(null);
+  const inputRef = useRef<HTMLInputElement | any>(null);
 
   const { data, error } = useSWR(`/api/count`, async (input: string) => {
     const res = await axios.get(input);
@@ -33,27 +36,60 @@ const Home = ({ allPokemons }: Props) => {
   const debouncedResults = useMemo(() => {
     return debounce(handleQueryChange, 300);
   }, []);
+
+  useEffect(() => {
+    import("@lottiefiles/lottie-player");
+  }, []);
+
   return (
     <Container>
       <div className="mx-4">
-        <div className="flex justify-center align-middle my-6 text-5xl ">
-          <h1 className="origin-center -rotate-6 neubrutal-borders neubrutal-borders-shadow p-4 m-4 bg-white">
-            Pokédroid
-          </h1>
+        <Navbar />
+        <div className="max-w-[1250px] mt-8 md:my-[115px] mx-auto lg:flex-row flex flex-col-reverse lg:justify-between items-center">
+          <div className="md:max-w-[496px] text-center lg:text-left my-10 mx-auto">
+            <h1 className="flex justify-center lg:justify-start flex-wrap items-center">
+              <span className="text-4xl mb-6">Get your</span>
+              <span className="text-4xl mb-6">&nbsp;Pokédroid!</span>
+            </h1>
+            <p className="text-base mb-6">
+              Search for your favourite Pokémon and export a high quality
+              polaroid of it.
+            </p>
+            <button className="px-4 py-[10px] neubrutal-borders bg-brand-1">
+              <a href="#search">Get Card</a>
+            </button>
+          </div>
+          <div className="w-80 h-80 md:w-[400px] md:h-[400px] xl:w-[600px] xl:h-[440px] mx-auto flex justify-center items-center">
+            <lottie-player
+              ref={lottieRef}
+              id="cardsLottie"
+              autoplay
+              mode="normal"
+              src="/cards.json"
+              style={{ width: "auto", height: "auto" }}
+            />
+          </div>
         </div>
-        <div className="max-w-5xl mx-auto flex justify-center align-middle ">
+        {/* search input */}
+        <div
+          className="max-w-5xl mx-auto flex justify-center align-middle "
+          id="search"
+        >
           <input
-            className="neubrutal-borders p-2 w-full"
+            className="neubrutal-borders mt-8 p-2 w-full"
             placeholder="Search for your favorite Pokémons here!"
             onChange={debouncedResults}
           />
         </div>
-        <div className="max-w-5xl max-h-full mx-4 lg:mx-auto">
-          <div className="md:grid md:grid-cols-3 lg:grid-cols-4 flex justify-center align-middle flex-wrap gap-6 my-6">
+
+        <div className="max-w-[1250px] max-h-full mx-4 lg:mx-auto">
+          <div className="md:flex lg:grid-cols-3 xl:grid-cols-4 flex justify-center items-center flex-wrap gap-6 my-10">
             {pokemonData.slice(startIndex, lastIndex).map((item, index) => {
-              return <Card key={index + 1} item={item} />;
+              return <Card key={uuidv4()} item={item} />;
             })}
           </div>
+
+          {/* pagination */}
           <div className="flex justify-center align-middle">
             <button
               className="p-2 px-3 mx-2 text-sm neubrutal-borders "
@@ -76,43 +112,15 @@ const Home = ({ allPokemons }: Props) => {
                 }
               }}
             >
-              Next
+              <a className="md:hidden" href="#search">
+                Next
+              </a>
+              <p className="hidden md:visible">Next</p>
             </button>
           </div>
         </div>
-
-        <div className="max-w-5xl mx-auto my-10 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex justify-center flex-col md:flex-row items-center">
-            <div className="flex justify-center items-center">
-              {data?.message
-                ?.toString()
-                ?.split("")
-                ?.map((item: string, index: number) => {
-                  return (
-                    <p
-                      key={index + 1}
-                      className="m-2 w-10 h-10 text-center flex justify-center items-center neubrutal-borders neubrutal-borders-shadow"
-                    >
-                      {item}
-                    </p>
-                  );
-                })}
-            </div>
-            <p className="m-4">Pokémons Downloaded</p>
-          </div>
-          <div className="my-3">
-            <p>
-              Made With ❤️ by{" "}
-              <a
-                href="https://www.github.com/xenomech"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Gokul Suresh
-              </a>
-            </p>
-          </div>
-        </div>
+        <CountMonitor data={data?.message} />
+        <Footer />
       </div>
     </Container>
   );
@@ -123,11 +131,13 @@ export default Home;
 export const getServerSideProps: GetServerSideProps<{
   allPokemons: allPokemonType;
 }> = async (context) => {
-  const res = await fetch("https://pokeapi.co/api/v2/generation/1");
+  const res = await fetch(
+    "https://pokeapi.co/api/v2/pokemon-species?limit=100000&offset=0"
+  );
   const allPokemons = await res.json();
   return {
     props: {
-      allPokemons: allPokemons.pokemon_species,
+      allPokemons: allPokemons.results,
     },
   };
 };
