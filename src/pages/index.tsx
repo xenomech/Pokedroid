@@ -114,10 +114,7 @@ const Home = ({ allPokemons }: Props) => {
                 }
               }}
             >
-              <a className="md:hidden" href="#search">
-                Next
-              </a>
-              <p className="hidden md:block">Next</p>
+              Next
             </button>
           </div>
         </div>
