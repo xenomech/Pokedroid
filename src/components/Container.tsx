@@ -10,7 +10,8 @@ export default function Container({ children }: Props) {
     description: "Get your pokemon polaroid!",
     keywords: "Pokemon | card | PokeCard | Nintendo 3DS | Pokemon x/y",
     type: "website",
-    image: "/static/images/og_image.png",
+    og_image: "/static/images/og_image.png",
+    twitter_image: "/static/images/Twitter_Card.png",
     twitterHandle: "@justgokulsuresh",
   };
   return (
@@ -23,13 +24,13 @@ export default function Container({ children }: Props) {
         <meta property="og:description" content={meta.description} />
         <meta property="og:keywords" content={meta.keywords} />
         <meta property="og:title" content={meta.title} />
-        <meta property="og:image" content={meta.image} />
+        <meta property="og:image" content={meta.og_image} />
         <meta name="twitter:title" content={meta.title} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:author" content={meta.twitterHandle} />
+        <meta name="twitter:creator" content={meta.twitterHandle} />
         <meta name="twitter:site" content={meta.twitterHandle} />
         <meta name="twitter:description" content={meta.description} />
-        <meta name="twitter:image" content={meta.image} />
+        <meta name="twitter:image" content={meta.twitter_image} />
       </Head>
       {children}
     </div>
