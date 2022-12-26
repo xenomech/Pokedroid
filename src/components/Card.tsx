@@ -37,7 +37,7 @@ const Card = ({ item }: Props) => {
         )}
 
         <div className="flex justify-center capitalize text-base items-center pointer-events-none py-4">
-          {cardData?.name}
+          {loading ? "loading" : cardData?.name}
         </div>
         <div className="flex justify-center items-center">
           {cardData && <Modal cardData={cardData} />}
