@@ -2,6 +2,7 @@ import React, { useMemo, useState, useEffect, useRef } from "react";
 import { GetServerSideProps } from "next";
 import { Card, Container, CountMonitor, Footer, Navbar } from "@components";
 import usePageNumber from "@hooks/usePageNumber";
+import useWidth from "@hooks/useWidth";
 import axios from "axios";
 import useSWR from "swr";
 import debounce from "lodash.debounce";
@@ -17,14 +18,14 @@ type Props = {
 const Home = ({ allPokemons }: Props) => {
   const [pokemonData, setPokemonData] = useState<allPokemonType[]>(allPokemons);
   const lottieRef = useRef<HTMLDivElement | any>(null);
-  const inputRef = useRef<HTMLInputElement | any>(null);
 
   const { data, error } = useSWR(`/api/count`, async (input: string) => {
     const res = await axios.get(input);
     return res.data;
   });
+  const width = useWidth();
   const [pageNumber, setPageNumber, numberOfPages, startIndex, lastIndex] =
-    usePageNumber(pokemonData.length);
+    usePageNumber(pokemonData.length, width);
 
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const data: allPokemonType[] = allPokemons.filter((item) =>
@@ -102,7 +103,7 @@ const Home = ({ allPokemons }: Props) => {
             >
               Prev
             </button>
-            <p className="text-sm text-center p-3 mx-2">
+            <p className="text-sm text-center p-2 mx-2">
               Page {pageNumber} of {numberOfPages}
             </p>
             <button
