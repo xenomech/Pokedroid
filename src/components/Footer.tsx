@@ -34,7 +34,7 @@ export default function Footer({}: Props) {
         <div className="">
           <a
             className="flex justify-start gap-2 my-4 md:mb-6 items-center"
-            href="https://www.gokuls.dev"
+            href="https://www.justgokul.dev"
           >
             <ReaderIcon className="w-6 h-6" />
             <p>Blog</p>
